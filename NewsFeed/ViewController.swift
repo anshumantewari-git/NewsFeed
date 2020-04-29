@@ -8,6 +8,21 @@
 
 import UIKit
 
+extension UIImageView {
+    func downloadImageFrom( link:String, contentMode: UIView.ContentMode) {
+        URLSession.shared.dataTask( with: URL(string:link)!, completionHandler: {
+            (data, response, error) -> Void in
+            DispatchQueue.main.async {
+                self.contentMode =  contentMode
+                if let data = data { self.image = UIImage(data: data) }
+            }
+            
+            
+        }).resume()
+    }
+}
+
+
 class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (newsFeed?.articles.count) ?? 0
@@ -16,14 +31,17 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         
+        
         cell.textLabel?.text = newsFeed?.articles[indexPath.row].title
         
-        let urlString = newsFeed?.articles[indexPath.row].urlToImage ?? "https://via.placeholder.com/150" //REVISIT
-        let imageURL = URL(string: urlString )!
-        
-        let imageData:NSData = NSData(contentsOf: imageURL)!
-        cell.imageView?.image = UIImage(data: imageData as Data)
-   
+        let urlString = newsFeed?.articles[indexPath.row].urlToImage
+        if let imageURL = URL(string: urlString! ) {
+            if let imageData:NSData = NSData(contentsOf: imageURL) {
+                   cell.imageView?.image = UIImage(data: imageData as Data)
+            }
+        }
+       
+       
         return cell
     }
     
@@ -49,11 +67,6 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
             if let listArticles = self.newsFeed?.articles {
                 for article in listArticles {
                     
-                    //REVIST: Investigate the nil imageurl
-                    //print(article.title )
-                    //print(article.urlToImage!)
-                    //print(article.url  )
-                    
                     if (article.urlToImage == nil) {
                         print("Found a nil image ")
                         dump(article)
@@ -69,19 +82,26 @@ class ViewController: UIViewController, UITableViewDelegate,UITableViewDataSourc
     func downloadFeed(completion: @escaping () -> () ) {
         let url = URL(string:"https://newsapi.org/v2/top-headlines?country=us&apiKey=1437be957ba74f9e93cf1688a28a05ac")
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            if error != nil || data == nil {
-                print(error!)
+            guard let data = data, error == nil else {
+                print("URL Data Fetch Error : ")
+                print(error)
                 return
             }
-            
-            do {
-                self.newsFeed = try JSONDecoder().decode(NewsFeed.self, from: data!)
-                
-                DispatchQueue.main.async {
-                    completion()
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
+                print("statusCode should be 200, but is (httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            if let body_response = String(data: data, encoding: String.Encoding.utf8) {
+                print(body_response)
+                do {
+                    self.newsFeed = try JSONDecoder().decode(NewsFeed.self, from: data)
+                    dump(self.newsFeed)
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                } catch {
+                    print(error)
                 }
-            } catch {
-                print("Json error")
             }
             
         }.resume()

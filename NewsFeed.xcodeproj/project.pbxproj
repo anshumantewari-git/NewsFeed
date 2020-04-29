@@ -14,6 +14,8 @@
 		002E13882458C50C00BBC1B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 002E13872458C50C00BBC1B5 /* Assets.xcassets */; };
 		002E138B2458C50C00BBC1B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 002E13892458C50C00BBC1B5 /* LaunchScreen.storyboard */; };
 		002E13952458CC1000BBC1B5 /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002E13942458CC1000BBC1B5 /* NewsFeed.swift */; };
+		002E139A2458F62300BBC1B5 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 002E13982458F62300BBC1B5 /* NewsTableViewCell.swift */; };
+		002E139B2458F62300BBC1B5 /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 002E13992458F62300BBC1B5 /* NewsTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		002E138A2458C50C00BBC1B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		002E138C2458C50C00BBC1B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		002E13942458CC1000BBC1B5 /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
+		002E13982458F62300BBC1B5 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
+		002E13992458F62300BBC1B5 /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				002E13892458C50C00BBC1B5 /* LaunchScreen.storyboard */,
 				002E138C2458C50C00BBC1B5 /* Info.plist */,
 				002E13942458CC1000BBC1B5 /* NewsFeed.swift */,
+				002E13982458F62300BBC1B5 /* NewsTableViewCell.swift */,
+				002E13992458F62300BBC1B5 /* NewsTableViewCell.xib */,
 			);
 			path = NewsFeed;
 			sourceTree = "<group>";
@@ -130,6 +136,7 @@
 			files = (
 				002E138B2458C50C00BBC1B5 /* LaunchScreen.storyboard in Resources */,
 				002E13882458C50C00BBC1B5 /* Assets.xcassets in Resources */,
+				002E139B2458F62300BBC1B5 /* NewsTableViewCell.xib in Resources */,
 				002E13862458C50900BBC1B5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +150,7 @@
 			files = (
 				002E13832458C50900BBC1B5 /* ViewController.swift in Sources */,
 				002E137F2458C50900BBC1B5 /* AppDelegate.swift in Sources */,
+				002E139A2458F62300BBC1B5 /* NewsTableViewCell.swift in Sources */,
 				002E13952458CC1000BBC1B5 /* NewsFeed.swift in Sources */,
 				002E13812458C50900BBC1B5 /* SceneDelegate.swift in Sources */,
 			);
